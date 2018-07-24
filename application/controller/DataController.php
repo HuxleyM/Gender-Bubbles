@@ -21,10 +21,10 @@ class DataController extends BaseController
 
                 //kk so logically we need to send this to other space
                 $info = $this->model->getData(); 
-                // this needs to be modified as not working as should
-                echo '<div id="dom-target" >'.
-                        json_encode($info).'
-                    </div>';
+                // this displays data on load
+                /*echo '<div id="dom-target" >'.
+                        print_r($info)
+                    .'</div>';*/
             }
       
 
@@ -46,13 +46,57 @@ class DataController extends BaseController
         require APP . 'view/_templates/footer.php';
     }
 
-    public function add($x){
+    // ok so this wasnt working because of the time delays taken with asynchronsity 
+    /*public function add($x){
     $info = null;
        if($this->model->input($x)){
         $info = $this->model->getData();
+        //there is a problem here, its returning
+        
+        print_r($info);
+         //echo json_encode($info);
        }
-       echo json_encode($info);
+       echo 'boo hoo';
+    }*/
+
+
+    public function add($x){
+        //im still cautious that one may complete befor the other? 
+        $this->model->input($x);
+        $info = $this->model->getData();
+        // json encode and decode to get rid of std Object Class
+        // testing 
+
+
+        //------- this might be bettert as a seperate function to allow
+        // start value to also use it 
+        
+        $info = json_decode(json_encode($info), True);
+       
+        $finalArray =[];
+        for ($row = 0; $row < count($info, COUNT_NORMAL); $row++)
+        {
+             array_push($finalArray, array($info[$row]["identity"],$info[$row]["count(*)"]));
+        }
+
+        echo json_encode($finalArray);
+      
     }
+
+
+    //making total get total function
+
+    public function total(){
+        $total = $this->model->total();
+        $total =  json_decode(json_encode($total), TRUE);
+        $total = json_encode($total[0]['count(*)']);
+        echo $total; 
+       /* $total = (int)$total; // casting is turning to 0..
+        // kk this needs to only return an interger. 
+        echo $total;  //string number.*/
+    }
+    
+    
 
 
 
