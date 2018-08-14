@@ -4,21 +4,24 @@ window.onload = function(e){
     // make global URL 
     const URL = '//localhost/contents/gender_survey/';
     const form = document.getElementById('form');
+
     
     form.addEventListener("submit", function(evt) {
         // prevent default prevents the window from loading up again, as we are using ajax as opposed to post and get this is wahat we need. 
         evt.preventDefault();
-        
-        // using higher order to call both
-        ammendData(updateTotal); /// ------------ this should be done better..
-    })
+        ammendData(); // will call second ajax request, which then calls handler
 
+       /* // variables that will be set through call back setters then passed to function */ 
+        var dataArray = [];
+        var total = undefined;   
+    })
 
 /*-------------------------------------------------------------- Ajax Function: updating data */
         
-function ammendData(func){
+function ammendData(){
         
             const identity = document.getElementById('gender').value;
+         
       
         try {
 
@@ -33,13 +36,13 @@ function ammendData(func){
             xmlhttp.onreadystatechange = function() {
                 
                 if (this.readyState == 4 && this.status == 200) {
-                    //callback(xmlhttp.responseText);
-                    console.log(xmlhttp.responseText)
-                    func(); /// ----- thibk this heres pretty messy actuallly.....
-                    contents.innerHTML = xmlhttp.responseText;
+                    let parsedArray = JSON.parse(xmlhttp.responseText);
+                    ammendDataCallBack(parsedArray);
+                    updateTotal();
+                  
         
                 } else {
-                    contents.innerHTML = "Loading...";
+                    temporaryDump.innerHTML = "Loading...";
                 };
             };
 
@@ -52,9 +55,9 @@ function ammendData(func){
         }
     }
 
-
 /*-------------------------------------------------------------- Ajax Function: getting total */
 var updateTotal = function(){
+    // m
       
         try {
 
@@ -69,8 +72,10 @@ var updateTotal = function(){
              total.onreadystatechange = function() {
                 
                 if (this.readyState == 4 && this.status == 200) {
-                    //callback(xmlhttp.responseText);
-                    console.log('total'+ total.responseText)
+                    let parsedInt = JSON.parse(total.responseText);
+                    totalCallBack(parsedInt);
+                    dataHandler(dataArray, total);
+                  
         
                 } else {
                     //contents.innerHTML = "Loading...";
@@ -80,11 +85,24 @@ var updateTotal = function(){
             total.open("GET",`${URL}data/total`, true);
             total.send();
         }
-
+                   
          catch(error){
              console.error(error);
         }
 };
 
-}// closing window onload.
+/*-------------------------------------------------------------- setter Functions: callback */
+ function ammendDataCallBack(x){
+     if(x){
+         return dataArray = x;
+        
+     }
+ }
 
+ function totalCallBack(x){
+    if(x){
+       return  total = x;
+  
+    }       
+}
+}// closing window onload.

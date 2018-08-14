@@ -46,31 +46,12 @@ class DataController extends BaseController
         require APP . 'view/_templates/footer.php';
     }
 
-    // ok so this wasnt working because of the time delays taken with asynchronsity 
-    /*public function add($x){
-    $info = null;
-       if($this->model->input($x)){
-        $info = $this->model->getData();
-        //there is a problem here, its returning
-        
-        print_r($info);
-         //echo json_encode($info);
-       }
-       echo 'boo hoo';
-    }*/
-
 
     public function add($x){
         //im still cautious that one may complete befor the other? 
         $this->model->input($x);
         $info = $this->model->getData();
-        // json encode and decode to get rid of std Object Class
-        // testing 
 
-
-        //------- this might be bettert as a seperate function to allow
-        // start value to also use it 
-        
         $info = json_decode(json_encode($info), True);
        
         $finalArray =[];
@@ -89,11 +70,10 @@ class DataController extends BaseController
     public function total(){
         $total = $this->model->total();
         $total =  json_decode(json_encode($total), TRUE);
-        $total = json_encode($total[0]['count(*)']);
+        $total = json_encode((int)$total[0]['count(*)']);// going into first array grabbing this value.
+
         echo $total; 
-       /* $total = (int)$total; // casting is turning to 0..
-        // kk this needs to only return an interger. 
-        echo $total;  //string number.*/
+    
     }
     
     
