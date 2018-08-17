@@ -1,13 +1,17 @@
+
+var circleArray = [];
+
 function dataHandler(obj , int ){
+  circleArray = [];
    //ok so json actually converts to an object array
- 
- for (var key in obj) {
-    let test = obj[key];
-    let identity = test[0];
-    let quantity = test[1];
-    let decimalPercent = quantity /  int;
-    // now need to call the circle constructior.
-    document.getElementById('temporaryDump').innerHTML= '<p>'+identity + ' '+ quantity + '\n'+ '</p>';
-}
- 
+  if(int > 0){ // if theres a value do this.
+    for (var key in obj) {
+      let test = obj[key]; //seperating into arrays
+      let identity = test[0];
+      let quantity = test[1];
+      let total = int;
+      // now need to call the circle constructior.
+      circleArray.push(new IdentityCircle(identity, quantity, total));
+    }
+  }
 }

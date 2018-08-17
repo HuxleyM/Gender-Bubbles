@@ -41,26 +41,32 @@ class DataController extends BaseController
     {   
         $pageTitle = 'Gender Survey';
 
+        
         require APP . 'view/_templates/header.php';
         require APP . 'view/index.php';
         require APP . 'view/_templates/footer.php';
+
+       
     }
 
 
-    public function add($x){
+    public function add($x = null){
         //im still cautious that one may complete befor the other? 
-        $this->model->input($x);
-        $info = $this->model->getData();
+        if($x != null){
+            $this->model->input($x);
+        }
+        echo $this->retrieveData();
+    }
 
-        $info = json_decode(json_encode($info), True);
-       
+    public function retrieveData(){
+        $info = $this->model->getData();
+        $info = json_decode(json_encode($info), True); 
         $finalArray =[];
         for ($row = 0; $row < count($info, COUNT_NORMAL); $row++)
         {
              array_push($finalArray, array($info[$row]["identity"],$info[$row]["count(*)"]));
         }
-
-        echo json_encode($finalArray);
+        return json_encode($finalArray); // may have to be return as opposed to echo 
       
     }
 

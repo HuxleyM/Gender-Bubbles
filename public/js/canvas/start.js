@@ -14,5 +14,4 @@ function animate(){
        circleArray[i].update();
    }
 }
-init();
 animate();
