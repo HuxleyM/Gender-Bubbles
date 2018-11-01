@@ -1,14 +1,22 @@
 //color for circles
-//global variables for circle
-
-
 var colorArray = [
     '#2a9d8f',
     '#e9c46a',
     '#f4a261',
     '#e76f51',
+    '#264653'
 ];
+// function to swap stroke
+var chosenCircle;
 
+function swap(circle){
+    if(chosenCircle){
+        chosenCircle.chosen = false;
+        chosenCircle = circle;
+        chosenCircle.chosen=true;
+    }
+    //return chosenCircle;
+}
 
 class IdentityCircle {
 
@@ -25,12 +33,11 @@ class IdentityCircle {
         this.dx = Math.random() * (2.5 - -2) +- 2;   // adjust speed little fast right now.
         this.dy = Math.random() * (2.5 - -2) +- 2; 
         //
-      
         this.maxRadius = innerWidth / 5;
         this.minRadius = this.radius;
         //
         this.color = colorArray[Math.floor(Math.random() * colorArray.length)];
-        this.current = false;
+        this.chosen = false;
     }
 
     draw(){
@@ -39,8 +46,8 @@ class IdentityCircle {
         context.fillStyle = this.color;
         context.fill();
         
-        if(this.current){
-            context.strokeStyle = 'white';
+        if(this.chosen){
+            context.strokeStyle = 'black';
             context.lineWidth = 5;
             context.stroke();
         }
@@ -58,8 +65,6 @@ class IdentityCircle {
         this.x += this.dx;
         this.y += this.dy;
 
-
-
         //interactivity 
 
         if((mouse.x - this.x) < 50 && (mouse.x - this.x) > -50
@@ -67,18 +72,25 @@ class IdentityCircle {
                 if(this.radius < this.maxRadius){
                     this.radius += 1;
                 }
-                // this makes sure only the current circle has the stroke 
-                circleArray.forEach(function(x){
-                    x.current = false;
-                })
-                document.getElementById('details').innerHTML = this.identity + " : " + this.quanitity;
-                this.current = true;
+                // this makes sure only the chosen circle has the stroke 
+                if(this.chosen == false){
+                    swap(this);
+                    circleArray.forEach(function(x){
+                        x.chosen = false;
+                    })
+                    this.chosen = true;
+                     //displays details
+                    document.getElementById('details').innerHTML = `<hr> ${this.quanitity} others also identified as ${this.identity}`;
+                    // call to thoughts js to retreive thoughts on gender to be displayed index
+                    thoughts(this.identity);
+                }
+               
+        } else {
+            // noThoughts()
+            if(this.radius > this.minRadius){
+                this.radius -=1;
+            }
         }
-        else if(this.radius > this.minRadius){
-            this.radius -=1;
-        }
-
-
         //calling draw function from within....urgh
         this.draw();
     }

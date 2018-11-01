@@ -1,7 +1,4 @@
 <?php
-
-
-//use Opeldo\Core\Controller;
 /**
  * Class Home
  *
@@ -15,22 +12,14 @@ class DataController extends BaseController
 {
     
     public function __construct()
-    {
+    {     
             $this->loadModel('DataModel');
             if($this->model->getData()){
 
                 //kk so logically we need to send this to other space
                 $info = $this->model->getData(); 
-                // this displays data on load
-                /*echo '<div id="dom-target" >'.
-                        print_r($info)
-                    .'</div>';*/
             }
-      
-
 	}
-    
-    
     
     /**
      * PAGE: index
@@ -50,16 +39,30 @@ class DataController extends BaseController
     }
 
 
-    public function add($x = null){
-        //im still cautious that one may complete befor the other? 
-        if($x != null){
-            $this->model->input($x);
+    public function add($array = null){
+        $array = json_decode($array,TRUE);
+      
+        if(!empty($array[0])){ //if theres a value
+           // echo ' theres something here i know it! '.$array[0];
+            //$array = json_decode($array,TRUE);
+        
+            $this->model->input($array[0], $array[1]);
         }
-        echo $this->retrieveData();
+    
+    
+        //echo $this->retrieveData();
+        //print_r($array);
+        //echo rawurlencode($array[1]); 
+       echo $this->retrieveData();
+
+        
     }
 
     public function retrieveData(){
+
         $info = $this->model->getData();
+     
+   
         $info = json_decode(json_encode($info), True); 
         $finalArray =[];
         for ($row = 0; $row < count($info, COUNT_NORMAL); $row++)
@@ -81,10 +84,14 @@ class DataController extends BaseController
         echo $total; 
     
     }
-    
-    
 
-
-
-    
+    public function thoughts($x){
+        $thoughtArray = $this->model->getThoughtsDB($x);  
+        $thoughtArray =  json_decode(json_encode($thoughtArray), TRUE); 
+        $finalArray =[]; 
+        for($row = 0; $row < count($thoughtArray, COUNT_NORMAL); $row++){
+            array_push($finalArray,$thoughtArray[$row]['thoughts']);
+        }
+       echo json_encode($finalArray);
+    }  
 }

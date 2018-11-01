@@ -1,22 +1,69 @@
+
+
+<canvas> Your browser doesnt support canvas :0 </canvas>
+
+<div id='overlay'></div> <!-- this will be opacity grey -->
+
+<h1>GENDER BUBBLES</h1>
+<div class='decoration' id='leftTop'></div>
+<div class='decoration' id='rightTop'></div>
+<div class='decoration' id='leftBottom'></div>
+<div class='decoration' id='rightBottom'></div>
+<!--Decorations--->
+
+
+
+<!-- forms --> 
+
 <div id='container'>
-    <form id='form' method='POST'>
-        <label for = 'gender'> Please enter your most preferred gender identity :) </br> don't worry you can enter another one afterwards
-        </label> </br>
-        <hr>
-        <input type = 'text' id='gender'>
-        <input type = 'submit' value = '+' id='submit'>
-        <button id ='search' type='button'>search</button>
-       
-    </form>
-    
-    <div id='errors'></div> 
-    <div id='feedback'></div>
-    <div id='details'></div>
-</div> <!-- closing the container -->
+    <div id='leftDiv'>
+        <ul>
+            <li id='aboutLi'>- ABOUT</li>
+            <li id='contactLi'>- CONTACT</li>
+            <li id='addLi'>- ADD</li>
 
-<canvas> Your browser doesnt support canvas :0 </canvas> 
+                <div id='form-container'>
+                    <form id='form' method='POST'>
+                        <div id='partOne'><!-- add-->
+                            <label for = 'gender'> 
+                                Please enter your most preferred gender identity :) don't worry you can enter another one afterwards! 
+                                or alternatively, click search to find an identity.
+                            </label> </br>
+                            <input type = 'text' id='gender'>
+                            <hr>
+                            <label for = 'thoughts'> 
+                                What do you think about gender? How do you describe your gender? (100 words max)
+                                What would you say to a younger you who may be struggling with theirs? 
+                            </label> </br>
+                            <hr>
+                            <textarea name='thoughts' id='thoughts'></textarea>
+                            </br>
+                            <input type = 'submit' value = '+' id='submit'>
+                            <h3 id='closeForm'> close </h3>
+                        </div>    
+                    </form>
 
-<!-- here we echo whats been fetched from the data controller already, 
-we can pass this streight to the call back function 
-https://stackoverflow.com/questions/23740548/how-to-pass-variables-and-data-from-php-to-javascript
---> 
+                    <div id='errors'></div> 
+                    <div id='feedback'></div>
+                </div> <!-- closing the container -->
+            <li id='searchLi'>- SEARCH</li>     
+                <div id='searchDiv'>
+                    <label for = 'search'> 
+                        search for your identity
+                        </label> </br>
+                        <input type = 'text' id='searchField'>
+                        <button id ='search' type='button'>search</button>
+                        <h3 id='closeSearch'> close </h3>
+                </div>
+            <li id='thoughtLi'>- THOUGHTS </li>
+                <div id='details'></div>
+                <div id='thoughtContainer'></div>
+        </ul>
+    </div>
+</div> 
+
+
+
+
+
+<div id='overlay'></div> <!-- this will be opacity grey -->

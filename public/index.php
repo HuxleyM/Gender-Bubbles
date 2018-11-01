@@ -2,9 +2,8 @@
 
 /**
  *
- * @package opledo
- * @author subrata
- * @link https://www.opeldo.com
+ *
+ * @author Georgia Millard
  * @license http://opensource.org/licenses/MIT MIT License
  */
 

@@ -14,6 +14,7 @@ class BaseModel
     {
         try {
             $this->openDatabaseConnection();
+            
         } catch (PDOException $e) {
             exit('Database connection could not be established.');
         }

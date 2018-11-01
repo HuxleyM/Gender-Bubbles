@@ -1,0 +1,3 @@
+# But, for fallback reasons (if you don't route your vhost to /public), it will stay here.
+RewriteEngine on
+RewriteRule ^(.*) gender_survey/$1 [L]

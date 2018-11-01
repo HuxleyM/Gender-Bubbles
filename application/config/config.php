@@ -72,6 +72,7 @@ define('URL', URL_PROTOCOL . URL_DOMAIN . URL_SUB_FOLDER);
  * Configuration for: Database
  * This is the place where you define your database credentials, database type etc.
  */
+
  $local = array('localhost', '127.0.0.1');
 
     if(in_array($_SERVER['HTTP_HOST'], $local)){
@@ -82,17 +83,16 @@ define('URL', URL_PROTOCOL . URL_DOMAIN . URL_SUB_FOLDER);
         define('DB_PASS', '');
         define('DB_CHARSET', 'utf8');
 
-    } else {
+    } else { 
 
         define('DB_TYPE', 'mysql');
-        define('DB_HOST', 'yoursite.com.mysql');
+        define('DB_HOST', 'localhost');
         define('DB_NAME', 'gender_survey');
-        define('DB_USER', 'root');
-        define('DB_PASS', 'YOUR_DB_PASS');
+        define('DB_USER', 'georgia_huxley');
+        define('DB_PASS', 'CBS8130sb');
         define('DB_CHARSET', 'utf8');
-
-        }
-
+    }
+        
 
 # spl_autoload_register() allows you to register a function -
 # that PHP will put into a stack/queue and call sequentially when a "new Class" is declared.

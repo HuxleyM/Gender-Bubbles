@@ -1,7 +1,4 @@
 <?php
-
-
-
 class BaseController
 {
     # Protected property for child to assign the model.
@@ -16,9 +13,5 @@ class BaseController
             $this->model = new $model_name();
            
         }
-            
-
     }
-
-  
 }

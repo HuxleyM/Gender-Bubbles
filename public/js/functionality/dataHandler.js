@@ -1,5 +1,5 @@
 
-var circleArray = [];
+var circleArray = []; // is there away to use closures to not have this floating alone
 
 function dataHandler(obj , int ){
   circleArray = [];
