@@ -6,16 +6,16 @@ var colorArray = [
     '#e76f51',
     '#264653'
 ];
-// function to swap stroke
+//------------------------------------------------ function to swap stroke function
 var chosenCircle;
 
 function swap(circle){
-    if(chosenCircle){
-        chosenCircle.chosen = false;
+    if(!chosenCircle){
         chosenCircle = circle;
-        chosenCircle.chosen=true;
     }
-    //return chosenCircle;
+    chosenCircle.chosen = false;
+    chosenCircle = circle;
+    chosenCircle.chosen = true;
 }
 
 class IdentityCircle {
@@ -72,19 +72,16 @@ class IdentityCircle {
                 if(this.radius < this.maxRadius){
                     this.radius += 1;
                 }
-                // this makes sure only the chosen circle has the stroke 
-                if(this.chosen == false){
-                    swap(this);
-                    circleArray.forEach(function(x){
-                        x.chosen = false;
-                    })
-                    this.chosen = true;
+                // external swap function 
+                swap(this);
+                /*
+              
                      //displays details
                     document.getElementById('details').innerHTML = `<hr> ${this.quanitity} others also identified as ${this.identity}`;
                     // call to thoughts js to retreive thoughts on gender to be displayed index
                     thoughts(this.identity);
                 }
-               
+               */
         } else {
             // noThoughts()
             if(this.radius > this.minRadius){
