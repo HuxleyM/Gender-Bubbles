@@ -1,8 +1,17 @@
-function thoughts(identity){
-    
-    var identity = identity;
-    var dataArray =[]; //defined and reset on ajax calls    
-    // SEND AJAX 
+// global variables for this to work 
+var interval;
+var counter = 0;
+var thoughtContainer = document.getElementById('thoughtContainer');
+var thoughtsArray = []; //defined and reset on ajax calls 
+
+
+function thoughts(identity, quanitity){
+ 
+    document.getElementById('details').innerHTML = '</br>' ;
+    document.getElementById('details').innerHTML = `<hr/>${quanitity} others also identified as ${identity}`;
+   
+
+    //---------------------- ------------------SEND AJAX 
 
     try {
 
@@ -13,7 +22,6 @@ function thoughts(identity){
             // code for IE6, IE5
             thoughtshttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        /// for MVC we always use this style , query string lives with Get, his is called clean URL 
         thoughtshttp.onreadystatechange = function() {
             
             if (thoughtshttp.readyState == 4 && thoughtshttp.status == 200) {
@@ -24,7 +32,7 @@ function thoughts(identity){
             };
         };
 
-        thoughtshttp.open("GET",`//localhost/contents/gender_survey/data/thoughts/${identity}`, true);
+        thoughtshttp.open("GET",`${URL}/data/thoughts/${identity}`, true);
         thoughtshttp.send();
     }
 
@@ -36,23 +44,23 @@ function thoughts(identity){
 
 function  ammendThoughtsCallBack(x){
     if(x){
-      dataArray = x;
-      displayThoughts(dataArray);
+      thoughtsArray = x; //got array
+      if(interval){clearInterval(interval)}; //stopping existing behaviour 
+      displayThoughts(); //loop
     }
 }
 
-
-
-function displayThoughts(arr){
-    clearInterval(displayTimer);
-    let length = arr.length;
-    let currentThought = Math.floor(Math.random() * length); 
-    //ive got set interval down
-    var displayTimer = setInterval(function(){
-       document.getElementById('thoughtContainer').innerHTML = "' " +arr[currentThought] + "' ";
-       currentThought++;
-       if(currentThought > (length -1)){
-           currentThought = 0;
-       }  
-   },10000);
+function displayThoughts(){
+    interval = setInterval(timer, 1000);
+    return interval;
+}
+  
+   
+function timer() {
+    let arr = thoughtsArray;
+    if(!arr[counter]){
+        counter = 0;
+    }
+    thoughtContainer.innerHTML = arr[counter];
+    counter++;
 }

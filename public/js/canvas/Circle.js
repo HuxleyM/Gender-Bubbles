@@ -1,4 +1,4 @@
-//color for circles
+//------------------------------------------------color for circles
 var colorArray = [
     '#2a9d8f',
     '#e9c46a',
@@ -6,6 +6,8 @@ var colorArray = [
     '#e76f51',
     '#264653'
 ];
+
+
 //------------------------------------------------ function to swap stroke function
 var chosenCircle;
 
@@ -67,23 +69,21 @@ class IdentityCircle {
 
         //interactivity 
 
-        if((mouse.x - this.x) < 50 && (mouse.x - this.x) > -50
-            && (mouse.y - this.y) < 50 && (mouse.y - this.y) > -50){
+        if((Mouse.x - this.x) < 50 && (Mouse.x - this.x) > -50
+            && (Mouse.y - this.y) < 50 && (Mouse.y - this.y) > -50){
                 if(this.radius < this.maxRadius){
                     this.radius += 1;
                 }
-                // external swap function 
-                swap(this);
-                /*
-              
-                     //displays details
-                    document.getElementById('details').innerHTML = `<hr> ${this.quanitity} others also identified as ${this.identity}`;
-                    // call to thoughts js to retreive thoughts on gender to be displayed index
-                    thoughts(this.identity);
+               if(Mouse.click){
+                    if(!chosenCircle || chosenCircle.identity !== this.identity){
+                        swap(this);
+                        thoughts(this.identity, this.quanitity);
+                    }
+                    Mouse.click = false;
                 }
-               */
-        } else {
-            // noThoughts()
+        } 
+        else {
+            
             if(this.radius > this.minRadius){
                 this.radius -=1;
             }

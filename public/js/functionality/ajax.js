@@ -2,8 +2,8 @@
 window.onload = function(e){
 
     // make global URL 
-    const URL = '//localhost/contents/gender_survey/';
-    const form = document.getElementById('form'); // enure all caps 
+    const URL = 'http://localhost/contents/gender_survey/'; ///http://genderbubble.com/'
+    const form = document.getElementById('form'); 
 
     //for search functionality 
     var toSearch = document.getElementById("search");
@@ -12,11 +12,8 @@ window.onload = function(e){
     ammendData();// this will ensure no blank screens.
 
  
-
     var start = true; // this start variable is controlling the ajax responses, apropriate o user is this in use
 
-    // we need a way of getting this data on start. we can get php to echo it to us and simply collect.
-    
     
     form.addEventListener("submit", function(evt) {
         // prevent default prevents the window from loading up again, as we are using ajax as opposed to post and get this is what we need. 
@@ -25,15 +22,13 @@ window.onload = function(e){
     
         if(!validateForm()){ // validateForm.
             ammendData(); // will call second ajax request, which then calls handler
-             /* // variables that will be set through call back setters then passed to function */ 
+            // variables that will be set through call back setters then passed to function */ 
            var dataArray = [];
            var total = undefined;   
         }
         else{
             console.log('errors');
         }
-
-        // this is giving crossed feed back right now, alert is appearing errors appearing and so is success message but not added 
     })
 
 /*-------------------------------------------------------------- Ajax Function: updating data */
@@ -54,8 +49,6 @@ function ammendData(){
     
     dataToSend.push(identity, thought);
    
-
-      
         try {
 
             if (window.XMLHttpRequest) {
@@ -74,9 +67,7 @@ function ammendData(){
                    let parsedArray = JSON.parse(decodeURI(customHTTP.responseText));
                     ammendDataCallBack(parsedArray);
                     updateTotal();
-                } else {
-                   //console.log('problem with ammend');
-                
+                } else {            
                 };
             };
 
@@ -134,7 +125,7 @@ var updateTotal = function(){
         }
 };
 
-/*-------------------------------------------------------------- setter Functions: callback */
+/*--------------------------------------------------------------  Functions: callback */
  function ammendDataCallBack(x){
      if(x){
          return dataArray = x;
@@ -149,7 +140,6 @@ var updateTotal = function(){
   
     }       
 }
-
    //adding responsive
    responsive(ammendData);
 

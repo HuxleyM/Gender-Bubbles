@@ -1,0 +1,1 @@
+// lets get the global variables either remove them so not needed or create a file with them 

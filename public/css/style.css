@@ -121,18 +121,27 @@ h1{
 
 /*-------------------------------------------------- container */
 
-#container {
+#container, #rightDiv{
     position: absolute;
     z-index:4;
     left:0;
     top:0;
     margin-top: 12em;
     height: auto;
-    width: auto;
+    max-height:50vh;
+    overflow: scroll;
+    max-width: 20em;
     background:white;
     padding: 10px;
     cursor: pointer;
 }
+/*----------------------------------- right div */
+
+#rightDiv {
+    margin-left:23em;
+
+}
+
 
 #container:hover ~ #overlay{
     opacity: 0.5;
@@ -143,51 +152,42 @@ ul{
 }
 
 ul li:hover{
-    font-size:2.8em;
+    background:#f4a261;
 }
 
 #leftDiv{
     height: auto;
     max-width:30em;
-}
-#leftDiv, #rightDiv{
     display: inline-block;
+}
+
+#leftDiv, #rightDiv{
     padding: 5px;
 }
-
-#rightDiv {
-    float:right;
-    width: 10em;
-    height: auto;
-    overflow: scroll;
-}
-
-#container2{
-    position: absolute;
-    z-index:4;
-    left:0;
-    top:0;
-    margin-top: 20em;
-    height: auto;
-    max-width: 8em;
-    background:white;
-    padding: 10px;
-    cursor: pointer;
-}
-
 /*------------------------------------ form container */
 
 
 form{
-    font-size: 1.4em;
+    font-size: 1em;
 }
 
+/* these start of hidden */
+
+.hidden {
+    display:none;
+    overflow:hidden;
+}
+
+#close{
+    text-align:center;
+    font-size: 14px;
+    margin-top:5px;
+
+}
 
 #form-container, #searchDiv{
-    height:0;
-    overflow:hidden;
     width:100%;
-    font-size: 16px; /* what is this being overidden by? */
+    font-size: 16px; 
     text-align: center;
 }
 
